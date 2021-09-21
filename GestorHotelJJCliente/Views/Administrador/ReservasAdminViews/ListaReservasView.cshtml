@@ -1,0 +1,137 @@
+﻿@{
+        ViewData["Title"] = "ListaReservasView";
+
+        if (ViewBag.PermisoUsuario == "1")
+        {
+            Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+        }
+        else if (ViewBag.PermisoUsuario == null)
+        {
+            <script>
+
+                redireccion('/Usuario/MuestraLoginUsuario');
+
+                function redireccion(direccion) {
+                    document.location.href = direccion;
+                }
+
+
+            </script>
+        }
+        else if (ViewBag.PermisoUsuario == "")
+        {
+            <script>
+                redireccion('/Usuario/MuestraLoginUsuario');
+
+                function redireccion(direccion) {
+                    document.location.href = direccion;
+                }
+
+
+            </script>
+        }
+
+    }
+
+
+
+
+<section id="about" class="about">
+    <section id="contenidoBT" style="margin-top:80px">
+        <section id="principalBT">
+            <CENTER>
+
+                @*<div class="box" style=" height: 600px; overflow: scroll;">*@
+                    <div content="width=device-widt" class="row" >
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10" style="width:100%;">
+                            <h1>Estado del hotel hoy</h1>
+
+                            @*<div style=" height: 600px; overflow-y: scroll;">*@
+                            <table id="" class="table table-dark table-striped" style="width:70%">
+                                <thead class="">
+
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>ID reserva</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        @*<th>Email</th>*@
+                                        <th>Tarjeta</th>
+                                        <th>Transaccion</th>
+                                        <th>Fecha llegada</th>
+                                        <th>Fecha salida</th>
+                                        <th>Tipo</th>
+                                        <th>Ver</th>
+                                        <th>Eliminar</th>
+
+                                    </tr>
+
+
+                                </thead>
+                                <tbody>
+
+                                    @if (ViewBag.ListaReservaciones != null)
+                                    {
+                                        @foreach (ReservasAdminModel temp in ViewBag.ListaReservaciones)
+                                        {
+                                    <tr>
+
+                                        <td>@temp.TC_Fecha</td>
+                                        <td>@temp.TN_Id_Reserva</td>
+                                        <td>@temp.TC_Nombre</td>
+                                        <td>@temp.TC_Apellidos</td>
+                                        @*<td>@temp.TC_Email</td>*@
+                                        <td>@temp.TC_Tarjeta</td>
+                                        <td>@temp.TC_Transaccion</td>
+                                        <td>@temp.TC_Fecha_Inicio</td>
+                                        <td>@temp.TC_Fecha_Final</td>
+                                        <td>@temp.TC_TipoHabitacion</td>
+
+                                        <td>
+                                            <center>
+                                                <div class="form-group">
+                                                    <form class="" asp-controller="ReservaAdmin" asp-action="getReservaView" enctype="multipart/form-data">
+                                                        <input type="text" name="TN_Id_Reserva" id="TN_Id_Reserva" class="dateselect1" value="@temp.TN_Id_Reserva" hidden />
+                                                        <button type="submit" class="btn btn-outline-success">
+                                                            Detalles
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <div class="form-group">
+                                                    <form class="" asp-controller="ReservaAdmin" asp-action="eliminarReservaView" enctype="multipart/form-data">
+                                                        <input type="text" name="TN_Id_Reserva" id="TN_Id_Reserva" class="dateselect1" value="@temp.TN_Id_Reserva" hidden />
+                                                        <button type="submit" class="btn btn-outline-danger">
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </center>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+                            @*  </div>*@
+
+                        </div>
+
+                    </div>
+            </CENTER>
+        </section>
+    </section>
+</section>

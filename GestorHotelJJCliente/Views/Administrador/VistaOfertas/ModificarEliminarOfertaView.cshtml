@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "CRUDTemporadaView";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+        {
+            <script>
+
+                redireccion('/Usuario/MuestraLoginUsuario');
+
+                function redireccion(direccion) {
+                    document.location.href = direccion;
+                }
+
+
+            </script>
+        }
+        else if (ViewBag.PermisoUsuario == "")
+        {
+            <script>
+                redireccion('/Usuario/MuestraLoginUsuario');
+
+                function redireccion(direccion) {
+                    document.location.href = direccion;
+                }
+
+
+            </script>
+        }
+
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<section id="about" class="about">
+
+    <section id="contenidoBT" style="margin-top:20px">
+        <section id="book-a-table" class="book-a-table">
+            <section id="principalBT">
+
+                <CENTER>
+                    <div class="section-title">
+                        <p>Modificar y eliminar temporadas</p>
+                    </div>
+
+                    <div content="width=device-widt" class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+
+
+                            <table id="buscarT" class="table-estadoHabitacion responsive nowrap" style="width:100%">
+                                <thead class="thead-dark">
+
+                                    <tr>
+                                        <th>Nombre oferta</th>
+                                        <th>Modificar</th>
+                                        <th>Eliminar</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+
+                                    @if (ViewBag.listaOfertas != null)
+                                    {
+
+                                        foreach (OfertaAdminModel temp in ViewBag.listaOfertas)
+                                        {
+
+                                            <tr>
+                                                <td>@temp.TC_Nombre_Oferta</td>
+
+                                                <td>
+                                                    <CENTER>
+                                                        <form class="" asp-controller="Oferta" asp-action="IrModificarOferta" enctype="multipart/form-data">
+                                                            <input type="text" name="TN_Id_Oferta" id="TN_Id_Oferta" class="dateselect1" value="@temp.TN_Id_Oferta" hidden />
+                                                            <button class="botones" type="submit">Modificar</button>
+                                                        </form>
+                                                    </CENTER>
+                                                </td>
+
+
+                                                <td>
+                                                    <CENTER>
+                                                        <form class="" asp-controller="Oferta" asp-action="EliminarOferta" enctype="multipart/form-data">
+                                                            <input type="text" name="TN_Id_Oferta" id="TN_Id_Oferta" class="dateselect1" value="@temp.TN_Id_Oferta" hidden />
+                                                            <button class="botones" type="submit">Eliminar</button>
+                                                        </form>
+                                                    </CENTER>
+                                                </td>
+
+                                            </tr>
+
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </CENTER>
+            </section>
+        </section>
+    </section>
+</section>
+
+

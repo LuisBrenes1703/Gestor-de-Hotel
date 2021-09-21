@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Reporte habitaciones general";
+    Layout = "/Views/Administrador/Shared/_LayoutMinuta.cshtml";
+
+}
+
+
+    <section id="about" class="about">
+        <section id="contenidoBT" style="margin-top:200px">
+            <section id="principalBT">
+                <CENTER>
+                    <div content="width=device-widt" style="margin-top:200px" class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <br><br><br><br><br><br>
+                            <h1 class="display-6">
+                                Reporte general del estado de las habitaciones
+                            </h1>
+                            <br><br><br>
+                            <table id="buscarT" class="table table-striped" style="width:80%">
+                                <thead class="">
+
+                                    <tr>
+                                        <th>Número de habitación</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
+
+                                    </tr>
+
+
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (EstadoHotelModel temp in Model)
+                                    {
+                                        <tr>
+
+                                            <td>@temp.TN_Id_Habitacion</td>
+                                            <td>@temp.TC_TipoHabitacion</td>
+                                            <td>@temp.TC_Estado</td>
+
+                                        </tr>
+
+
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-sm-2">
+                            @*<form asp-controller="HotelAdministrador" asp-action="ConsultarDisponbilidadHabitaciones">
+                                <input type="hidden" class="form-control" id="idReunion" name="idReunion" value="temp2.TN_Id_Reunion" />
+                                <div class="form-group">
+                                  <a href="" target="_blank">
+                                        <img src="~/assets/imprimir.png" width="75" height="75" class="img-fluid" alt="">
+                                </a>
+                                <div class="form-group"><button type="submit" class="btn btn-secondary ">Ver Minuta</button></div>
+
+                                </div>
+                             </form>*@
+                        </div>
+                    </div>
+                </CENTER>
+            </section>
+        </section>
+    </section>

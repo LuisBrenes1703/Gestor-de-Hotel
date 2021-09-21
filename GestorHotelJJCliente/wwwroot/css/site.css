@@ -1,0 +1,203 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+    border-top: 1px solid #cda45e;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+div::-webkit-scrollbar {
+    width: 8px; /* width of the entire scrollbar */
+}
+
+div::-webkit-scrollbar-track {
+    background: rgba(217, 178, 112, 0.27); /* color of the tracking area */
+}
+
+div::-webkit-scrollbar-thumb {
+    background-color: rgba(230, 187, 110, 0.78); /* color of the scroll thumb */
+    border-radius: 5px; /* roundness of the scroll thumb */
+    border: 3px solid rgba(230, 187, 110, 1.00); /* creates padding around scroll thumb */
+}
+
+
+
+
+/*Nuestro css*/
+
+.SelectOption {
+    color: white;
+    background-color: #0c0b09;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 14px;
+    background: #0c0b09;
+    border-color: #625b4b;
+    color: white;
+}
+
+
+.table-estadoHabitacion {
+    color: white;
+    background-color: rgba(216, 215, 215, 0.00) !important;
+}
+
+
+#buscarT_length {
+    color: white;
+    background-color: rgba(216, 215, 215, 0.18) !important;
+}
+
+#buscarT_filter {
+    color: white;
+    background-color: rgba(216, 215, 215, 0.18) !important;
+}
+
+
+.table-estadoHabitacion td{
+   
+    border: 1px solid #BD8A14;
+    padding: 50px;
+    margin-bottom: 40px;
+}
+
+    .table-estadoHabitacion th {
+        background-color: rgba(189, 138, 20, 0.35) !important;
+        border: 1px solid #BD8A14;
+        padding: 50px;
+        margin-bottom: 40px;
+    }
+
+
+    .table-estadoHabitacion tr {
+        background-color: rgba(216, 215, 215, 0.18) !important;
+        border: 1px solid #BD8A14;
+        padding: 50px;
+        margin-bottom: 40px;
+    }
+
+#buscarT_length {
+    color: white;
+}
+
+select [name="buscarT_length"] {
+    background-color: white;
+    color: white;
+}
+
+#buscarT_filter {
+    color: white;
+}
+
+#buscarT_info {
+    color: white;
+}
+
+input[type="search"] {
+    color: white;
+}
+
+#buscarT_previous {
+    color: white;
+}
+
+
+.alert {
+    background-color: rgba(230, 187, 110, 0.39) !important;
+    border: 3px solid rgba(230, 187, 110, 1.00) !important;
+}
+
+h6[name="errorCredenciales"] {
+    color: white !important;
+}
+
+
+[type="date"] {
+    background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
+}
+
+/*#buscarT {
+
+}*/
+/**/
+/*tbody {
+    background-color: rgba(216, 215, 215, 0.15);
+    border-radius: 8px;
+    border: 1px solid #BD8A14;
+    padding: 50px;
+    margin-bottom: 40px;
+}
+*/
+
+.botones {
+    background: #cda45e;
+    border: 0;
+    padding: 10px 35px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+}

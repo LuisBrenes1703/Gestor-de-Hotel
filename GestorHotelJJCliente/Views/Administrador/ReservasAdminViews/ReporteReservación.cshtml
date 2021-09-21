@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Reporte Reservación";
+    Layout = "/Views/Administrador/Shared/_LayoutMinuta.cshtml";
+
+}
+
+
+    <section id="about" class="about">
+        <section id="contenidoBT" style="margin-top:200px">
+            <section id="principalBT">
+                <CENTER>
+                    <div content="width=device-widt" style="margin-top:200px" class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <br><br><br><br><br><br><br>
+                            <h1 class="display-6" style="margin-left:100px">
+
+                                Reporte general de una reservación
+                            </h1>
+
+                            <br>
+                            @if (Model != null)
+                            {
+
+                                ReservasAdminModel listaReservasHabitaciones = Model;
+
+                                <h5 style="text-align: justify; margin-left:70px;">Fecha: @listaReservasHabitaciones.TC_Fecha</h5>
+                                <hr />
+                                <h5 style="text-align: justify; margin-left:70px;">ID Reserva: @listaReservasHabitaciones.TN_Id_Reserva</h5>
+                                <hr />
+                                <h5 style="text-align: justify;  margin-left:70px;"> ID Cliente: @listaReservasHabitaciones.TC_Nombre @listaReservasHabitaciones.TC_Apellidos</h5>
+                                <hr />
+                                <h5 style="text-align: justify; margin-left:70px;"> Email: @listaReservasHabitaciones.TC_Email</h5>
+                                <hr />
+                                <h5 style="text-align: justify; margin-left:70px;"> Tarjeta: @listaReservasHabitaciones.TC_Tarjeta</h5>
+                                <hr />
+                                <h5 style="text-align: justify; margin-left:70px;"> Transacción: @listaReservasHabitaciones.TC_Transaccion</h5>
+                                <hr />
+                                <h5 style="text-align: justify; margin-left:70px;"> Fecha llegada: @listaReservasHabitaciones.TC_Fecha_Inicio</h5>
+                                <hr />
+                                <h5 style="text-align: justify; margin-left:70px;"> Fecha Salida: @listaReservasHabitaciones.TC_Fecha_Final</h5>
+                                <hr/>
+                                <h5 style="text-align: justify; margin-left:70px;"> Tipo habitación: @listaReservasHabitaciones.TC_TipoHabitacion</h5>
+
+                            }
+
+                        </div>
+
+
+                        <div class="col-sm-2">
+                            @*<form asp-controller="HotelAdministrador" asp-action="ConsultarDisponbilidadHabitaciones">
+                                <input type="hidden" class="form-control" id="idReunion" name="idReunion" value="temp2.TN_Id_Reunion" />
+                                <div class="form-group">
+                                  <a href="" target="_blank">
+                                        <img src="~/assets/imprimir.png" width="75" height="75" class="img-fluid" alt="">
+                                </a>
+                                <div class="form-group"><button type="submit" class="btn btn-secondary ">Ver Minuta</button></div>
+
+                                </div>
+                             </form>*@
+                        </div>
+                    </div>
+                </CENTER>
+            </section>
+        </section>
+    </section>

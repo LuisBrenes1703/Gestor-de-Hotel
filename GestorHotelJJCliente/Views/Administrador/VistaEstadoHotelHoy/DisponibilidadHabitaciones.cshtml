@@ -1,0 +1,162 @@
+﻿@{
+    ViewData["Title"] = "VerEstadoHotelHoyView";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+    {
+        <script>
+
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+    else if (ViewBag.PermisoUsuario == "")
+    {
+        <script>
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        $('.apple-switch').on('click', function () {
+
+            var id = $(this).attr('id');
+            var selecionado = false;
+
+            if ($(this).is(':checked')) {
+                // Hacer algo si el checkbox ha sido seleccionado
+                //alert("El checkbox con valor " + $(this).attr('id') + " ha sido seleccionado");
+                selecionado = true;
+            } else {
+                // Hacer algo si el checkbox ha sido deseleccionado
+                //alert("El checkbox con valor " + $(this).attr('id') + " ha sido deseleccionado");
+                selecionado = false;
+            }
+
+            var parametros = { "TN_Id_Habitacion": id, "TB_Bit": selecionado  };
+            $.ajax(
+                {
+                    data: parametros,
+                    url: '/HotelAdministrador/CambiarDisponibilidadHabitación',
+                    type: 'post',
+                    beforeSend: function () {
+                        $("#ResultadoDisp").html("Procesando, espere por favor ...");
+                    },
+                    success: function (response) {
+
+                        $("#ResultadoDisp").html(response);
+
+                        redireccion('/HotelAdministrador/VerDisponibilidadHotelHoyView');
+
+                        function redireccion(direccion) {
+                            document.location.href = direccion;
+                        }
+
+                    }
+                }
+            );
+
+
+        });
+    })
+
+
+</script>
+
+<section id="about" class="about">
+    <section id="contenidoBT" style="margin-top:80px">
+        <section id="principalBT">
+            <CENTER>
+                <div content="width=device-widt" class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <h1>Cambiar el estado de las habitaciones</h1>
+                        <br>
+                        @*<span id="ResultadoDisp">soy span</span>*@
+
+                        <div style=" height: 600px; overflow-y: scroll;">
+                            <table id="" class="table table-dark table-striped" style="width:100%">
+                                <thead class="thead-dark">
+
+                                    <tr>
+                                        <th>Número de habitación</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
+                                        <th>Habilitar</th>
+
+                                    </tr>
+
+
+                                </thead>
+                                <tbody>
+
+                                    @if (ViewBag.ListaEstadoHabitaciones != null)
+                                    {
+                                        @foreach (EstadoHotelModel temp in ViewBag.ListaEstadoHabitaciones)
+                                        {
+                                            <tr>
+
+                                                <td>@temp.TN_Id_Habitacion</td>
+                                                <td>@temp.TC_TipoHabitacion</td>
+                                                <td>@temp.TC_Estado</td>
+
+                                                @if (@temp.TB_Bit)
+                                                {
+                                                    <td>
+
+                                                        <center><input class="apple-switch" type="checkbox" id="@temp.TN_Id_Habitacion" checked></center>
+
+                                                        <input type="text" name="TN_Id_Habitacion" id="TN_Id_Habitacion" class="dateselect1" value="@temp.TN_Id_Habitacion" hidden />
+                                                    </td>
+                                                }
+                                                else
+                                                {
+
+                                                    <td>
+
+                                                        <center><input class="apple-switch" type="checkbox" id="@temp.TN_Id_Habitacion"></center>
+
+                                                        <input type="text" name="TN_Id_Habitacion" id="TN_Id_Habitacion" class="dateselect1" value="@temp.TN_Id_Habitacion" hidden />
+                                                    </td>
+
+                                                }
+
+                                            </tr>
+
+
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+  
+                    </div>
+
+                </div>
+            </CENTER>
+        </section>
+    </section>
+</section>

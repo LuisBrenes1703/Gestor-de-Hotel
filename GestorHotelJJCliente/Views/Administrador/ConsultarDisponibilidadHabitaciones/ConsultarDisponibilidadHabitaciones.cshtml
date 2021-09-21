@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewData["Title"] = "ConsultarDisponibilidadHabitaciones";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+    {
+        <script>
+            
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+    else if (ViewBag.PermisoUsuario == "")
+    {
+        <script>            
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+
+}
+
+
+
+<section id="about" class="about">
+    <section id="contenidoBT" style="margin-top:80px">
+        <section id="book-a-table" class="book-a-table">
+            <section id="principalBT">
+                <CENTER>
+
+                    <div class="col-lg-8 pt-4 pt-lg-0  order-2 order-lg-2 content text-center php-email-form">
+                        @*<div class="col-lg-6 col-md-4 col-sm-5 col-xs-12">*@
+                        <h1>Consultar Disponibilidad de Habitaciones - Resultado</h1>
+                        <form class="" asp-controller="HotelAdministrador" asp-action="ConsultarDisponbilidadHabitaciones" method="POST">
+                            <div class="widget" style="padding-top: -30px;">
+                                <div class="summary-block">
+                                    <div class="row">
+                                        <div class="col-lg-4  order-1 order-lg-1">
+                                            <div class="summary-head">
+                                                <h5 style="color:white" class="summary-title">
+                                                    Fecha Llegada
+                                                </h5>
+                                            </div>
+                                            <label>
+                                                <input type="date" name="TC_FechaInicio" id="TC_FechaInicio" class="dateselect1" required="required" />
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-4  order-1 order-lg-1">
+                                            <div class="summary-head">
+                                                <h5 style="color:white" class="summary-title">
+                                                    Fecha Salida
+                                                </h5>
+                                            </div>
+                                            <label>
+                                                <input type="date" name="TC_FechaFin" id="TC_FechaFin" class="dateselect1" required="required" />
+                                            </label>
+                                        </div>
+
+                                        <div class="col-lg-4  order-1 order-lg-1">
+
+                                            @if (ViewBag.ListaTipoHabitacion != null)
+                                            {
+
+                                                <select class="SelectOption" name="TN_Id_TipoHabitacion" id="TN_Id_TipoHabitacion" style="margin-top: 28px; height: 48px;" aria-label="">
+                                                    <option selected>Tipo de habitación</option>
+                                                    @foreach (TipoHabitacionModel temp in ViewBag.ListaTipoHabitacion)
+                                                    {
+                                                        <option value="@temp.TN_Id_TipoHabitacion" class="SelectOption">@temp.TC_TipoHabitacion</option>
+
+                                                    }
+
+                                                </select>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <br>
+
+
+                                    <div class="row">
+
+                                        <div class="col-lg-7  order-1 order-lg-1">
+                                            <button class="btn btn-warning btn-lg mb30" type="submit" name="TN_TipoOperacion" id="TN_TipoOperacion" value="0">Consultar</button>
+                                        </div>
+
+
+                                        <div class="col-lg-4  order-1 order-lg-1">
+                                            <button class="btn btn-warning btn-lg mb30" type="submit" name="TN_TipoOperacion" id="TN_TipoOperacion" value="1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                                                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                                </svg> Imprimir</button>
+                                        </div>
+
+
+                                    </div>
+
+                                    @if (ViewBag.fechas != null)
+                                    {
+                                        <div class="alert alert-warning mt-3" id="al1" role="alert" style="display: block; text-align:center">
+                                            @Model
+                                            <h6 style="color:black;"> @ViewBag.fechas</h6>
+                                        </div>
+                                        <br>
+                                    }
+
+
+
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <br>
+                    <br>
+
+
+
+                    <div content="width=device-widt" class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            @if (ViewBag.ListaHabitacionesDisponibles != null)
+                            {
+
+
+                                <table id="buscarT" class="table-estadoHabitacion responsive nowrap" style="width:100%">
+                                    <thead class="thead-dark">
+
+                                        <tr>
+                                            <th>Número de habitación</th>
+                                            <th>Tipo</th>
+                                            <th>Estado</th>
+
+                                        </tr>
+
+
+                                    </thead>
+                                    <tbody>
+
+
+                                        @foreach (EstadoHotelModel temp in ViewBag.ListaHabitacionesDisponibles)
+                                        {
+                                            <tr>
+
+                                                <td>@temp.TN_Id_Habitacion</td>
+                                                <td>@temp.TC_TipoHabitacion</td>
+                                                <td>@temp.TC_Estado</td>
+
+                                            </tr>
+
+
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+
+                                
+
+                            }
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </CENTER>
+            </section>
+        </section>
+    </section>
+</section>
+
+

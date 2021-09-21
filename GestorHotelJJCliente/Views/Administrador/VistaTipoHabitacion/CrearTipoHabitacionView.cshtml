@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "CRUDTipoHabitacionView";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+    {
+        <script>
+
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+    else if (ViewBag.PermisoUsuario == "")
+    {
+        <script>
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+
+}
+
+<link rel="stylesheet" href="~/css/scriptReserva.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+
+<body>
+
+
+    <main id="main">
+        <!-- ======= Specials Section ======= -->
+        <section id="about" class="about">
+            <section id="book-a-table" class="book-a-table">
+                <div class="row">
+
+
+                    <div class="container col-12 col-md-10 order-1 order-lg-2" data-aos="fade-up" style="margin-top: 0px">
+                        <section id="specials" class="specials">
+                            <div class="container" data-aos="fade-up">
+
+                                <center>
+                                    <div class="section-title">
+                                        @*<h2>Specials</h2>*@
+                                        <p>Crear Tipo de habitación</p>
+                                    </div>
+
+                                    <div class="widget" style="padding-top: -30px; height:650px; width:80%;">
+
+
+                                        <div class="summary-block">
+                                            <form class="" asp-controller="TipoHabitacion" asp-action="CrearTipoHabitacion" enctype="multipart/form-data">
+
+
+                                                <div class="row">
+                                                    <div class="col-lg-4  order-1 order-lg-1">
+
+                                                        <div class="container" data-aos="fade-up">
+                                                            <div class="php-email-form">
+                                                                <h5 style="color:white" class="summary-title">
+                                                                    Nombre Tipo Habitación
+                                                                </h5>
+                                                                <input type="text" class="form-control" name="TC_TipoHabitacion" id="TC_TipoHabitacion" placeholder="Nombre Habitación" required>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="container" data-aos="fade-up">
+                                                            <div class="php-email-form">
+                                                                <h5 style="color:white" class="summary-title">
+                                                                    Cantidad Habitaciones
+                                                                </h5>
+                                                                <input type="number" class="form-control" name="TN_Cantidad" id="TN_Cantidad" placeholder="Cantidad" required>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="container" data-aos="fade-up">
+                                                            <div class="php-email-form">
+                                                                <h5 style="color:white" class="summary-title">
+                                                                    Tarifa
+                                                                </h5>
+                                                                <input type="number" class="form-control" name="TC_Tarifa" id="TC_Tarifa" min="1" placeholder="Tarifa" required>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+                                                        <br>
+                                                        <div class="container" data-aos="fade-up">
+                                                            <div class="php-email-form">
+
+                                                                <button class="btn btn-warning btn-lg mb-5" type="submit">Aceptar</button>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-8  order-2 order-lg-2">
+
+                                                        <div class="container" data-aos="fade-up">
+                                                            <div class="php-email-form">
+                                                                <h5 style="color:white" class="summary-title">
+                                                                    Agregar Imagen
+                                                                </h5>
+                                                                <input class="input100" type="file" id="TC_URL_IMG" name="TC_URL_IMG" required>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="container" data-aos="fade-up">
+                                                            <div class="php-email-form">
+                                                                <h5 style="color:white" class="summary-title">
+                                                                    Descripción
+                                                                </h5>
+                                                                <textarea name="TC_Descripcion" id="TC_Descripcion" class="font-italic dateselect1" style="text-align: justify;" rows="10" cols="40" required></textarea>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                @if (ViewBag.validacion != null)
+                                                {
+                                                    <div class="alert alert-warning mt-3" id="al1" role="alert" style="display: block; text-align:center">
+                                                        @Model
+                                                        <h6 style="color:black;"> @ViewBag.validacion</h6>
+                                                    </div>
+                                                    <br>
+                                                }
+
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </center>
+
+
+                            </div>
+                        </section><!-- End Specials Section -->
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Bootstrap/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Bootstrap/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Bootstrap/assets/js/main.js"></script>
+
+</body>
+
+

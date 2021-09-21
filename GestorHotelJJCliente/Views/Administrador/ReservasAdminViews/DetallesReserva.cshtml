@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "DetallesReserva";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+    {
+        <script>
+
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+    else if (ViewBag.PermisoUsuario == "")
+    {
+        <script>
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+
+}
+
+<link rel="stylesheet" href="~/css/scriptReserva.css" />
+
+<section id="about" class="about">
+    <section id="contenidoBT" style="margin-top:80px">
+        <section id="principalBT">
+            <CENTER>
+                <div content="width=device-widt" class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+
+                        <div class="box" >
+                            <h1>Detalles de la reservación</h1>
+                            <br>
+
+
+                            @if (ViewBag.ListaReservaciones != null)
+                            {
+
+                                ReservasAdminModel listaReservasHabitaciones = ViewBag.ListaReservaciones;
+
+                                <h5 style="text-align: justify;"> Fecha: @listaReservasHabitaciones.TC_Fecha</h5>
+                                <h5 style="text-align: justify;"> ID Reserva: @listaReservasHabitaciones.TN_Id_Reserva</h5>
+                                <h5 style="text-align: justify;"> ID Cliente: @listaReservasHabitaciones.TC_Nombre @listaReservasHabitaciones.TC_Apellidos</h5>
+                                <h5 style="text-align: justify;"> Email: @listaReservasHabitaciones.TC_Email</h5>
+                                <h5 style="text-align: justify;"> Tarjeta: @listaReservasHabitaciones.TC_Tarjeta</h5>
+                                <h5 style="text-align: justify;"> Transacción: @listaReservasHabitaciones.TC_Transaccion</h5>
+                                <h5 style="text-align: justify;"> Fecha llegada: @listaReservasHabitaciones.TC_Fecha_Inicio</h5>
+                                <h5 style="text-align: justify;"> Fecha Salida: @listaReservasHabitaciones.TC_Fecha_Final</h5>
+                                <h5 style="text-align: justify;"> Tipo habitación: @listaReservasHabitaciones.TC_TipoHabitacion</h5>
+
+                         
+
+
+                            <form asp-controller="ReservaAdmin" asp-action="ReporteReservaView" enctype="multipart/form-data">
+                                <input type="hidden" class="form-control" id="idReunion" name="idReunion" value="temp2.TN_Id_Reunion" />
+                                <div class="form-group">
+
+                                    <br>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-warning">
+
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                                <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                                                <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                            </svg>
+                                            Descargar reporte
+                                        </button>
+
+                                        <input type="text" name="TN_Id_Reserva" id="TN_Id_Reserva" class="dateselect1" value="@listaReservasHabitaciones.TN_Id_Reserva" hidden />
+
+                                    </div>
+                                </div>
+                            </form>
+
+                            }
+                        </div>
+                    </div>
+                    </div>
+            </CENTER>
+        </section>
+    </section>
+</section>

@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "CRUDTemporadaView";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+        {
+            <script>
+
+                redireccion('/Usuario/MuestraLoginUsuario');
+
+                function redireccion(direccion) {
+                    document.location.href = direccion;
+                }
+
+
+            </script>
+        }
+        else if (ViewBag.PermisoUsuario == "")
+        {
+            <script>
+                redireccion('/Usuario/MuestraLoginUsuario');
+
+                function redireccion(direccion) {
+                    document.location.href = direccion;
+                }
+
+
+            </script>
+        }
+
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<section id="about" class="about">
+
+    <section id="contenidoBT" style="margin-top:10px">
+        <section id="book-a-table" class="book-a-table">
+            <section id="principalBT">
+
+                <CENTER>
+                    <div class="section-title">
+                        @*<h2>Specials</h2>*@
+                        <p>Modificar y eliminar temporadas</p>
+                    </div>
+
+                    <div content="width=device-widt" class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+
+                            <table id="buscarT" class="table-estadoHabitacion responsive nowrap" style="width:100%">
+                                <thead class="thead-dark">
+
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Fecha inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Porcentaje</th>
+                                        <th>Modificar</th>
+                                        <th>Eliminar</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.listarTemporadas != null)
+                                    {
+                                        var cont = 1;
+
+                                        @foreach (GestorHotelJJCliente.Models.Administrador.TemporadaAdminModel temp in ViewBag.listarTemporadas)
+                                        {
+
+                                            var TN_Id_Temporada = "TN_Id_Temporada" + cont;
+                                            var TC_Fecha_Inicio = "TC_Fecha_Inicio" + cont;
+                                            var TC_Fecha_Final = "TC_Fecha_Final" + cont;
+
+                                            var TC_PorcentajeTemporada = "TC_PorcentajeTemporada" + cont;
+                                            var TC_PorcentajeTemporadaTXT = "TC_PorcentajeTemporadaTXT" + cont;
+                                            var TC_Temporada = "TC_Temporada" + cont;
+
+                                            var ResultTM = "ResultadoTM" + @temp.TN_Id_Temporada;
+                                            var ResultTE = "ResultadoTE" + @temp.TN_Id_Temporada;
+                                            var fila = "fila" + @temp.TN_Id_Temporada;
+                                            cont++;
+
+                                            <tr id="@fila">
+                                                <td>
+                                                    <input type="text" name="@TC_Temporada" id="@TC_Temporada" class="dateselect1" value="@temp.TC_Temporada" required="required" />
+                                                    <input type="hidden" name="@TN_Id_Temporada" id="@TN_Id_Temporada" class="dateselect1" value="@temp.TN_Id_Temporada" required="required" />
+                                                </td>
+                                                <td><CENTER><input type="date" name="@TC_Fecha_Inicio" id="@TC_Fecha_Inicio" class="dateselect1" value="@temp.TC_Fecha_Inicio" required="required" /></CENTER></td>
+                                                <td><CENTER><input type="date" name="@TC_Fecha_Final" id="@TC_Fecha_Final" class="dateselect1" value="@temp.TC_Fecha_Final" required="required" /></CENTER></td>
+                                                <td>
+                                                    <CENTER>
+                                                        <div class="form-group">
+                                                            <input type="range" class="form-control-range" style="-webkit-appearance: none;  background: black; border-radius: 5px;  height: 10px;border: 1px solid #B7950B;cursor: pointer;" name="@TC_PorcentajeTemporada" id="@TC_PorcentajeTemporada" onInput="$('#@TC_PorcentajeTemporadaTXT').html($(this).val())">
+                                                            <span style="color:white" id="@TC_PorcentajeTemporadaTXT">@temp.TC_PorcentajeTemporada<!-- Default value --></span>
+                                                        </div>
+                                                    </CENTER>
+                                                </td>
+                                                <td>
+                                                    <CENTER><button class="botones" type="submit" onclick="ModificarTemporada($('#@TN_Id_Temporada').val(), $('#@TC_Temporada').val(), $('#@TC_PorcentajeTemporada').val(), $('#@TC_Fecha_Inicio').val(), $('#@TC_Fecha_Final').val())">Modificar </button> </CENTER>
+                                                    <span id="@ResultTM"></span>
+                                                </td>
+                                                <td>
+                                                    <CENTER><button class="botones" type="submit" onclick="eliminarTemporada($('#@TN_Id_Temporada').val())">Eliminar </button> </CENTER>
+                                                    <span id="@ResultTE"></span>
+                                                   
+                                                </td>
+
+                                            </tr>
+
+                                            
+                                        }
+
+
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </CENTER>
+            </section>
+        </section>
+    </section>
+</section>
+
+

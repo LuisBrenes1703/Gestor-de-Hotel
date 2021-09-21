@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "BuscarDisponibilidad";
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/scriptReserva.css" />
+@model HotelModel
+
+<script>
+
+
+    $('.dateselect1').datepicker({
+        format: 'mm/dd/yyyy'
+        // startDate: '-3d'
+    });
+
+</script>
+
+
+<body>
+
+
+    <main id="main">
+        <section id="about" class="about">
+            <section id="book-a-table" class="book-a-table">
+                <div class="row">
+
+                    <div style="margin-top:10px;" class="col-12 col-md-2 order-2 order-lg-1" data-aos="fade-up">
+
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                        <!-- ======= Inicio Publicidad Div ======= -->
+                        <div class="section-title">
+                            <h2>Publicidad</h2>
+                        </div>
+
+                        <div class="owl-carousel events-carousel" data-aos="fade-up" data-aos-delay="100">
+                            <!--Se genera en base a la lista completa de publicidad registradas una serie de div que permitan ver todas las imagenes-->
+                            @if (ViewBag.ListaPublicidad != null)
+                            {
+                                @foreach (PublicidadModel temp in ViewBag.ListaPublicidad)
+                                {
+
+
+                                    <div class="row event-item">
+                                        <div class="col-lg-10">
+                                            <a href="@temp.TC_LinkPublicidad" target="_blank">
+                                                <img src="@temp.TC_URL_IMG" class="img-fluid" alt="">
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <br>
+                        <!-- ======= Inicio Oferta Div ======= -->
+                        <div class="section-title">
+                            <h2>Ofertas</h2>
+                        </div>
+
+                        <div class="owl-carousel events-carousel" data-aos="fade-up" data-aos-delay="100">
+                            <!--Se genera en base a la lista completa de oferta registradas una serie de div que permitan ver todas las imagenes-->
+                            @if (ViewBag.ListaOferta != null)
+                            {
+                                @foreach (OfertaModel temp in ViewBag.ListaOferta)
+                                {
+                                    <div class="row event-item">
+                                        <div class="col-lg-10">
+                                            <img src="@temp.TC_URL_IMG" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+
+                    <div class="container col-12 col-md-10 order-1 order-lg-2" data-aos="fade-up">
+
+                        <form class="" asp-controller="Reservacion" asp-action="InformacionClienteReservaView" method="POST">
+
+                            <div class="content">
+
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
+                                        <div class="box" style=" height: 600px; overflow: scroll;">
+                                           
+                                                <h3 class="box-title">Selecione su habitacion</h3>
+                                          
+                                                @if (ViewBag.ListaTipoHabitacion != null)
+                                                {
+
+                                                    int aux = 0;
+                                                    @foreach (TipoHabitacionModel temp in ViewBag.ListaTipoHabitacion)
+                                                    {
+
+                                                        <div class="plan-selection">
+                                                            <div class="plan-data">
+                                                                @* <input id="@temp.TN_Id_TipoHabitacion" name="@temp.TN_Id_TipoHabitacion" type="radio" class="with-font" checked="checked"  />*@
+                                                                <div class="row">
+
+                                                                    @if (aux == 0)
+                                                                    {
+                                                                        <input type="text" class="form-control" name="TN_Id_TipoHabitacion" id="TN_Id_TipoHabitacion" placeholder="ids" hidden value="@temp.TN_Id_TipoHabitacion">
+                                                                        <div class="col-lg-1  order-1 order-lg-1"> <input id="@temp.TN_Id_TipoHabitacion" name="radio" type="radio" checked="checked" onclick="preReserva()"> </div>
+                                                                        aux++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="col-lg-1  order-1 order-lg-1"> <input id="@temp.TN_Id_TipoHabitacion" name="radio" type="radio" onclick="preReserva()"> </div>
+
+                                                                    }
+
+                                                                    <div class="col-lg-8 order-2 order-lg-2"><label style="color:white" for="question1">@temp.TC_TipoHabitacion</label> </div>
+                                                                    <div class="col-lg-3 order-3 order-lg-3 " style="margin-top: 68px"><span class="plan-price">₡@temp.TC_Tarifa</span> </div>
+
+                                                                </div>
+
+                                                                <p class="plan-text" style="color:white; margin-top: -30px; text-align: justify;">@temp.TC_Descripcion</p>
+
+                                                            </div>
+                                                        </div>
+
+                                                    }
+                                                }
+
+                                            </div>
+
+
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                                        <div class="widget" style="padding-top: -30px; height:600px;">
+                                            <h3 class="widget-title">Rango fechas</h3>
+                                            <div class="summary-block">
+
+                                                <div class="">
+                                                    <div class="summary-head">
+                                                        <h5 style="color:white" class="summary-title">
+                                                            Fecha Inicial
+                                                        </h5>
+                                                    </div>
+                                                    <label>
+                                                        <input type="date" name="TC_FechaInicio" id="TC_FechaInicio" class="dateselect1" required="required" />
+                                                    </label>
+                                                </div>
+                                                <div class="">
+                                                    <div class="summary-head">
+                                                        <h5 style="color:white" class="summary-title">
+                                                            Fecha Final
+                                                        </h5>
+                                                    </div>
+                                                    <label>
+                                                        <input type="date" name="TC_FechaFin" id="TC_FechaFin" class="dateselect1" required="required" />
+                                                    </label>
+                                                </div>
+                                                <div class="container" data-aos="fade-up">
+                                                    <div class="php-email-form">
+                                                        <div class="form-group">
+                                                            <input type="text" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" name="TN_Cantidad" id="TN_Cantidad" class="form-control" placeholder="Cantidad " required="required">
+                                                            <div class="validate"></div>
+                                                            <center>
+                                                                @*<a href="#" class="btn btn-warning btn-lg mb30">Aceptar</a>*@
+                                                                @*<button class="btn btn-warning btn-lg mb30" type="submit">Aceptar</button>*@
+                                                                <button class="btn btn-warning btn-lg mb30" type="submit">Aceptar</button>
+                                                                @*<input type="button" href="javascript:;" onclick="preReserva($('#TN_Cantidad').val(), $('#TC_FechaInicio').val() , $('#TC_FechaFin').val() );return false;" class=" btn-warning btn-lg mb30" id="registrar" name="registrar" value="Aceptar" />*@
+                                                                @*  <div class="form-group"><span style="color:white;" id="resultado"></span></div>*@
+                                                                @if (ViewBag.dispobilidad != null)
+                                                                {
+                                                                    <div class="alert alert-warning mt-3" id="al1" role="alert" style="display: block; text-align:center">
+                                                                        @Model
+                                                                        <h6 style="color:black;"> @ViewBag.dispobilidad</h6>
+                                                                    </div>
+                                                                    <br>
+                                                                }
+
+                                                                @if (ViewBag.fechas != null)
+                                                                {
+                                                                    <div class="alert alert-warning mt-3" id="al1" role="alert" style="display: block; text-align:center">
+                                                                        @Model
+                                                                        <h6 style="color:black;"> @ViewBag.fechas</h6>
+                                                                    </div>
+                                                                    <br>
+                                                                }
+                                                                
+
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+    </main>
+</body>
+
+<!-- Vendor JS Files -->
+<script src="~/Bootstrap/assets/vendor/jquery/jquery.min.js"></script>
+<script src="~/Bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/Bootstrap/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="~/Bootstrap/assets/vendor/php-email-form/validate.js"></script>
+<script src="~/Bootstrap/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="~/Bootstrap/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="~/Bootstrap/assets/vendor/venobox/venobox.min.js"></script>
+<script src="~/Bootstrap/assets/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="~/Bootstrap/assets/js/main.js"></script>

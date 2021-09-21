@@ -1,0 +1,208 @@
+﻿@{
+    ViewData["Title"] = "CRUDTemporadaView";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+    {
+        <script>
+
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+    else if (ViewBag.PermisoUsuario == "")
+    {
+        <script>
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+
+}
+
+
+<link rel="stylesheet" href="~/css/scriptReserva.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+
+<body>
+
+  
+    <main id="main">
+        <!-- ======= Specials Section ======= -->
+        <section id="about" class="about">
+            <section id="book-a-table" class="book-a-table">
+                <div class="row">
+
+
+                    <div class="container col-12 col-md-10 order-1 order-lg-2" data-aos="fade-up" style="margin-top: 0px">
+                        <section id="specials" class="specials">
+                            <div class="container" data-aos="fade-up">
+
+                                <center>
+                                    <div class="section-title">
+                                        @*<h2>Specials</h2>*@
+                                        <p>Crear oferta</p>
+                                    </div>
+
+                                    <div class="widget" style="padding-top: -30px; height:730px; width:40%;">
+
+                                        <h3 class="widget-title">Rango fechas</h3>
+
+                                        <div class="summary-block">
+                                            <form class="" asp-controller="Oferta" asp-action="AgregarOferta" enctype="multipart/form-data">
+
+                                                <div class="row">
+
+                                                    <div class="col-lg-  order-1 order-lg-1">
+                                                        <div class="summary-head">
+                                                            <h5 style="color:white" class="summary-title">
+                                                                Fecha Inicio
+                                                            </h5>
+                                                        </div>
+                                                        <label>
+                                                            <input type="date" name="TC_Fecha_Inicio" id="TC_FechaInicio" class="dateselect1" required="required" />
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-6  order-2 order-lg-2">
+                                                        <div class="summary-head">
+                                                            <h5 style="color:white" class="summary-title">
+                                                                Fecha Final
+                                                            </h5>
+                                                        </div>
+                                                        <label>
+                                                            <input type="date" name="TC_Fecha_Fin" id="TC_FechaFin" class="dateselect1" required="required" />
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="container" data-aos="fade-up">
+                                                    <div class="php-email-form">
+                                                        <h5>Nombre Oferta</h5>
+                                                        <input type="text" class="form-control" name="TC_Nombre_Oferta" id="TC_Nombre_Oferta" placeholder="Nombre oferta" required>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="container" data-aos="fade-up">
+                                                    <div class="php-email-form">
+                                                        <div class="form-group">
+
+                                                            <div class="form-group">
+                                                                <h5 style="color:white" class="summary-title">
+                                                                    Porcentaje descuento
+                                                                </h5>
+                                                                <input type="range" class="form-control-range" name="TC_PorcentajeOferta" style="-webkit-appearance: none;  background: black; border-radius: 5px;  height: 10px;border: 1px solid #B7950B;cursor: pointer;" id="TC_PorcentajeOferta" onInput="$('#rangeval').html($(this).val())">
+                                                                <span style="color:white" id="rangeval">50<!-- Default value --></span>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <center>
+                                                            <div class="form-group">
+
+                                                                <div class="form-group">
+                                                                    <select class="SelectOption" name="TN_Id_TipoHabitacion" id="TN_Id_TipoHabitacion" style=" height: 35px; width:275px;" aria-label="" required="required">
+
+                                                                        <option selected>Tipo de habitación</option>
+                                                                        @if (ViewBag.ListaTipoHabitacion != null)
+                                                                        {
+                                                                            foreach (TipoHabitacionModel temp in ViewBag.ListaTipoHabitacion)
+                                                                            {
+                                                                                <option value="@temp.TN_Id_TipoHabitacion" class="SelectOption">@temp.TC_TipoHabitacion</option>
+
+                                                                            }
+                                                                        }
+
+                                                                    </select>
+                                                                    <div class="validate"></div>
+                                                                </div>
+
+
+                                                                <h5>Agregar Imagen</h5>
+                                                                <div content="width=device-widt" class="row">
+                                                                    <div class="form-group col-sm-12">
+                                                                        <input class="input100" type="file" id="imagenOferta" name="imagenOferta" required="required">
+                                                                    </div>
+                                                                </div>                             
+
+
+                                                                <button class="btn btn-warning btn-lg mb30" type="submit">Aceptar</button>
+
+                                                                @if (ViewBag.validacion != null)
+                                                                {
+                                                                    <div class="alert alert-warning mt-3" id="al1" role="alert" style="display: block; text-align:center">
+                                                                        @Model
+                                                                        <h6 style="color:black;"> @ViewBag.validacion</h6>
+                                                                    </div>
+                                                                    <br>
+                                                                }
+
+                                                                @if (ViewBag.fechas != null)
+                                                                {
+                                                                    <div class="alert alert-warning mt-3" id="al1" role="alert" style="display: block; text-align:center">
+                                                                        @Model
+                                                                        <h6 style="color:black;"> @ViewBag.fechas</h6>
+                                                                    </div>
+                                                                    <br>
+                                                                }
+
+
+
+
+                                                            </div>
+                                                        </center>
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </center>
+
+
+                            </div>
+                        </section><!-- End Specials Section -->
+                    </div>
+                </div>
+            </section>
+        </section>
+</main>
+
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Bootstrap/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Bootstrap/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Bootstrap/assets/js/main.js"></script>
+
+</body>
+
+

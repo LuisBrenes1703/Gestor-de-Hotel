@@ -1,0 +1,296 @@
+﻿@{
+    ViewData["Title"] = "TarifasClienteView";
+}
+
+<body>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <main id="main">
+        <!-- ======= Specials Section ======= -->
+        <section id="about" class="about">
+            <section id="specials" class="specials">
+                @*<div class="container" data-aos="fade-up">*@
+
+                <div class="row">
+
+                    <div style="margin-top:10px;" class="col-12 col-md-2 order-2 order-lg-1" data-aos="fade-up">
+                        <!-- ======= Inicio Publicidad Div ======= -->
+                        <div class="section-title">
+                            <h2>Publicidad</h2>
+                        </div>
+
+                        <div class="owl-carousel events-carousel" data-aos="fade-up" data-aos-delay="100">
+                            <!--Se genera en base a la lista completa de publicidad registradas una serie de div que permitan ver todas las imagenes-->
+                            @if (ViewBag.ListaPublicidad != null)
+                            {
+                                @foreach (PublicidadModel temp in ViewBag.ListaPublicidad)
+                                {
+                                   
+
+                                    <div class="row event-item">
+                                        <div class="col-lg-10">
+                                            <a href="@temp.TC_LinkPublicidad" target="_blank">
+                                                <img src="@temp.TC_URL_IMG" class="img-fluid" alt="">
+                                            </a>
+                                             
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <br>
+                        <!-- ======= Inicio Oferta Div ======= -->
+                        <div class="section-title">
+                            <h2>Ofertas</h2>
+                        </div>
+
+                        <div class="owl-carousel events-carousel" data-aos="fade-up" data-aos-delay="100">
+                            <!--Se genera en base a la lista completa de oferta registradas una serie de div que permitan ver todas las imagenes-->
+                            @if (ViewBag.ListaOferta != null)
+                            {
+                                @foreach (OfertaModel temp in ViewBag.ListaOferta)
+                                {
+                                    <div class="row event-item">
+                                        <div class="col-lg-10">
+                                            <img src="@temp.TC_URL_IMG" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="container col-12 col-md-10 order-1 order-lg-2" data-aos="fade-up">
+
+                        <div class="row">
+
+                            <div class="col-lg-2 pt-4 pt-lg-0 order-1 order-lg-1 content">
+                                <div class="section-title">
+                                    <p>Tarifas</p>
+                                </div>
+                                @if (ViewBag.ListaTipoHabitacion != null)
+                                {
+                                    int tabNum = 1;
+                                    <ul class="nav nav-tabs flex-column">
+                                        @foreach (TipoHabitacionModel temp in ViewBag.ListaTipoHabitacion)
+                                        {
+                                            string nomTab = "#tab-" + tabNum;
+                                            if (tabNum == 1)
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link active show" data-toggle="tab" href="@nomTab">@temp.TC_TipoHabitacion</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="@nomTab">@temp.TC_TipoHabitacion</a>
+                                                </li>
+
+                                            }
+
+                                            tabNum++;
+
+                                        }
+                                    </ul>
+                                }
+
+
+                            </div>
+
+
+                            <div class="col-lg-10 order-2 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="tab-content">
+                                    @if (ViewBag.ListaTipoHabitacion != null)
+                                    {
+                                        int tabNum2 = 1;
+                                        int numCaracteristica = 1;
+
+                                        @foreach (TipoHabitacionModel temp in ViewBag.ListaTipoHabitacion)
+                                        {
+
+                                            string nomTab = "tab-" + tabNum2;
+
+                                            if (tabNum2 == 1)
+                                            {
+                                                <div class="tab-pane active show" id="@nomTab">
+                                                    <div class="row">
+
+                                                        <div class="col-lg-5 pt-4 pt-lg-0 order-1 order-lg-1 content">
+                                                            <h3>Descripción</h3>
+                                                            <p class="font-italic" style="text-align: justify;">@temp.TC_Descripcion</p>
+
+
+                                                        </div>
+                                                        <div class="col-lg-1 order-2  order-lg-2">
+                                                        </div>
+
+                                                        <div class="col-lg-6 text-center order-3 order-lg-3">
+
+                                                            <div class="row">
+                                                                <div>
+                                                                    @if (@temp.TemporadaActual != null)
+                                                                    {
+                                                                        float tarifaFinal = @temp.TC_Tarifa;
+                                                                        if (temp.TemporadaActual.TC_PorcentajeTemporada != null)
+                                                                        {
+
+                                                                            float aplicarTemporada = @temp.TC_Tarifa / 100;
+                                                                            float descuento = aplicarTemporada * Int32.Parse(temp.TemporadaActual.TC_PorcentajeTemporada);
+                                                                            tarifaFinal = @temp.TC_Tarifa - descuento;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            tarifaFinal = @temp.TC_Tarifa;
+                                                                        }
+
+                                                                        if (temp.TC_PorcentajeOferta != "0")
+                                                                        {
+                                                                            float aplicarOferta = tarifaFinal / 100;
+                                                                            float descuento = aplicarOferta * Int32.Parse(temp.TC_PorcentajeOferta);
+                                                                            tarifaFinal = tarifaFinal - descuento;
+                                                                        }
+
+
+
+                                                                        <h3 class="font-italic" style="text-align: justify;"> Precio base : @temp.TC_Tarifa</h3>
+
+                                                                        if (temp.TemporadaActual.TC_PorcentajeTemporada != null || temp.TC_PorcentajeOferta == "0")
+                                                                        {
+                                                                            <h3 class="font-italic" style="text-align: justify;"> Precio con rebaja : @tarifaFinal</h3>
+                                                                        }
+
+                                                                    }
+                                                                    <br>
+
+                                                                    <img src="@temp.TC_URL_IMG" width="400" height="300">
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div class="tab-pane " id="@nomTab">
+                                                    <div class="row">
+                                                        <div class="col-lg-5 pt-4 pt-lg-0 order-1 order-lg-1 content">
+                                                            <h3>Descripción</h3>
+                                                            <p class="font-italic" style="text-align: justify;">@temp.TC_Descripcion</p>
+                                                            
+
+                                                        </div>
+
+                                                        <div class="col-lg-1 order-2  order-lg-2">
+                                                        </div>
+
+                                                        <div class="col-lg-6 text-center order-3 order-lg-3">
+
+                                                            <div class="row">
+                                                                <div>
+                                                                    @if (@temp.TemporadaActual != null)
+                                                                    {
+
+                                                                        float tarifaFinal = @temp.TC_Tarifa;
+                                                                        if (temp.TemporadaActual.TC_PorcentajeTemporada != null)
+                                                                        {
+
+                                                                            float aplicarTemporada = @temp.TC_Tarifa / 100;
+                                                                            float descuento = aplicarTemporada * Int32.Parse(temp.TemporadaActual.TC_PorcentajeTemporada);
+                                                                            tarifaFinal = @temp.TC_Tarifa - descuento;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            tarifaFinal = @temp.TC_Tarifa;
+                                                                        }
+
+
+                                                                        if (temp.TC_PorcentajeOferta != "0")
+                                                                        {
+                                                                            float aplicarOferta = tarifaFinal / 100;
+                                                                            float descuento = aplicarOferta * Int32.Parse(temp.TC_PorcentajeOferta);
+                                                                            tarifaFinal = tarifaFinal - descuento;
+                                                                        }
+
+
+
+                                                                        <h3 class="font-italic" style="text-align: justify;"> Precio base : @temp.TC_Tarifa</h3>
+
+                                                                        if (temp.TemporadaActual.TC_PorcentajeTemporada != null || temp.TC_PorcentajeOferta == "0")
+                                                                        {
+                                                                            <h3 class="font-italic" style="text-align: justify;"> Precio con rebaja : @tarifaFinal</h3>
+                                                                        }
+
+
+                                                                    }
+                                                                    <br>
+
+                                                                    <img src="@temp.TC_URL_IMG" width="400" height="300">
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+
+                                            }
+
+                                            tabNum2++;
+
+                                        }
+
+                                    }
+
+                                    @*<div class="about-img">
+                    <img src="~/Bootstrap/assets/img/about.jpg" alt="">
+                </div>*@
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-lg-1 order-lg-4">
+
+                            </div>
+                           
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                @*</div>*@
+            </section><!-- End Specials Section -->
+        </section>
+    </main>
+
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Bootstrap/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Bootstrap/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/Bootstrap/assets/vendor/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Bootstrap/assets/js/main.js"></script>
+
+</body>
+
+

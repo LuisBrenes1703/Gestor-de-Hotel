@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "VerEstadoHotelHoyView";
+
+    if (ViewBag.PermisoUsuario == "1")
+    {
+        Layout = "/Views/Administrador/Shared/_LayoutAdministrador.cshtml";
+
+
+    }
+    else if (ViewBag.PermisoUsuario == null)
+    {
+        <script>
+
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+    else if (ViewBag.PermisoUsuario == "")
+    {
+        <script>
+            redireccion('/Usuario/MuestraLoginUsuario');
+
+            function redireccion(direccion) {
+                document.location.href = direccion;
+            }
+
+
+        </script>
+    }
+
+}
+
+
+<section id="about" class="about">
+    <section id="contenidoBT" style="margin-top:80px">
+        <section id="principalBT">
+            <CENTER>
+                <div content="width=device-widt" class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <h1>Estado del hotel hoy</h1>
+
+                        <table id="buscarT" class="table-estadoHabitacion responsive nowrap" style="width:100%">
+                            <thead class="thead-dark">
+
+                                <tr>
+                                    <th>Número de habitación</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+
+                                </tr>
+
+
+                            </thead>
+                            <tbody>
+
+                                @if (ViewBag.ListaEstadoHabitaciones != null)
+                                {
+                                    @foreach (EstadoHotelModel temp in ViewBag.ListaEstadoHabitaciones)
+                                    {
+                                        <tr>
+
+                                            <td>@temp.TN_Id_Habitacion</td>
+                                            <td>@temp.TC_TipoHabitacion</td>
+                                            <td>@temp.TC_Estado</td>
+
+                                        </tr>
+
+
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                        <form asp-controller="HotelAdministrador" asp-action="ReporteEstadoHotelHoyView" method="POST">
+                            <input type="hidden" class="form-control" id="idReunion" name="idReunion" value="temp2.TN_Id_Reunion" />
+                            <div class="form-group">
+                                @*<a type="submit">
+            <img src="~/assets/imprimir.png" width="75" height="75" class="img-fluid" alt="">
+        </a>*@
+                                <br><br><br>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-warning">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                            <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                                            <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                        </svg>
+                                        Ver Reporte
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </CENTER>
+        </section>
+    </section>
+</section>
